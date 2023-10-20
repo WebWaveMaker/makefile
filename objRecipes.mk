@@ -15,7 +15,7 @@ $(DIRS):
 	@$(MAKE) -C $@ $(J)
 endif
 
-NAME := $(addsuffix .a, $(shell basename $(shell pwd)))
+NAME := $(shell basename $(shell pwd))
 
 all bonus :
 ifdef DIRS
@@ -25,24 +25,22 @@ endif
 	@$(MAKE) $(NAME)
 	@$(call color_printf,$(GREEN),$(NAME),🔰 done!)
 
-$(NAME): $(OBJS) $(LIBS)
-	@$(call color_printf,$(GREEN),$(NAME),📚 archive object)
-	$(AR) $(ARFLAGS) $@ $^
-	@$(MAKE) files="$(NAME)" src_dir=`pwd` dst_dir=$(TOPDIR)/src/lib link_files
+$(NAME): $(OBJS)
+	@$(shell touch $(NAME))
 
-clean:
+$(DSTDIR)/objs :
+	@mkdir -p $(DSTDIR)/objs
+
+$(DSTDIR)/objs/%.o: %.cpp | $(DSTDIR)/objs
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $< -o $@
+
+fclean clean:
 	@$(foreach dir, $(DIRS), $(MAKE) TOPDIR=$(TOPDIR) -C $(dir) $(J) $@;)
-	@$(MAKE) files="$(NAME)" src_dir=`pwd` dst_dir=$(TOPDIR)/src/lib unlink_files
 	@$(call color_printf,$(RED),$(NAME),🗑️  remove Objects && Dependency file)
-	$(RM) $(OBJS) $(DEPS)
-
-fclean: clean
-	@$(foreach dir, $(DIRS), $(MAKE) TOPDIR=$(TOPDIR) -C $(dir) $(J) $@;)
-	@$(call color_printf,$(RED),$(NAME),🗑️  remove $(NAME))
-	$(RM) $(NAME)
+	$(RM) $(OBJS) $(DEPS) $(NAME)
 
 re : fclean
 	@$(foreach dir, $(DIRS), $(MAKE) TOPDIR=$(TOPDIR) -C $(dir) $(J) $@;)
 	$(MAKE) all
 
-.PHONY: all clean fclean re bonus $(DIRS)
+.PHONY: all clean fclean re bonus $(NAME) $(DIRS)
