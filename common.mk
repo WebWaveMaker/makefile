@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    common.mk                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jgo <jgo@student.42seoul.kr>               +#+  +:+       +#+         #
+#    By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/23 16:28:44 by jgo               #+#    #+#              #
-#    Updated: 2023/10/04 20:21:59 by jgo              ###   ########.fr        #
+#    Updated: 2023/10/26 18:31:22 by sanghwal         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
 INCLUDE_DIR := config/makefile
-INCLUDE_FILES := color.mk funcs.mk flags.mk rules.mk
+INCLUDE_FILES := color.mk funcs.mk rules.mk flags.mk
 
 ifndef TOPDIR
     $(error TOPDIR is not defined)
