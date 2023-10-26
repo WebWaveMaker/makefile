@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Recipes.mk                                         :+:      :+:    :+:    #
+#    recipes.mk                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jgo <jgo@student.42seoul.kr>               +#+  +:+       +#+         #
+#    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/04 20:15:41 by jgo               #+#    #+#              #
-#    Updated: 2023/10/04 20:50:03 by jgo              ###   ########.fr        #
+#    Updated: 2023/10/27 00:13:23 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ $(DIRS):
 all bonus :
 	@$(MAKE) $(DIRS)
 	@$(call color_printf,$(YELLOW),$(NAME),🎯 Start compiling)
-	$(MAKE) $(NAME)
+	@$(MAKE) $(NAME)
 	@$(call color_printf,$(GREEN),$(NAME),✨ compiled!)
 
 $(NAME): $(OBJS) $(LIBS)
@@ -36,4 +36,7 @@ re: fclean
 	@$(foreach dir, $(DIRS), $(MAKE) TOPDIR=$(TOPDIR) -C $(dir) $(J) $@;)
 	$(MAKE)
 
-.PHONY: all bonus clean fclean re $(DIRS) $(NAME)
+check : $(OBJS)
+	@$(MAKE) $(DIRS)
+
+.PHONY: all bonus clean fclean re $(DIRS) check
