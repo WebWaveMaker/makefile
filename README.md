@@ -1,2 +1,2 @@
 # makefile
-makefile Configuration for Out Project
+makefile Configuration for Our Project
